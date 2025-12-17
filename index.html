@@ -2,69 +2,216 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Selamat Ulang Tahun Sayang ❤️</title>
+<title>Selamat Ulang Tahun ❤️</title>
+
 <style>
 body{
   margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  font-family:'Segoe UI',sans-serif;
+  background:url('bg.jpg') center/cover no-repeat fixed;
   height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
+  overflow:hidden;
 }
+
+/* overlay */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4);
+}
+
+/* card */
 .card{
+  position:relative;
   background:white;
-  padding:30px;
+  padding:25px;
   border-radius:20px;
+  width:330px;
   text-align:center;
-  width:320px;
-  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  z-index:2;
+  box-shadow:0 15px 40px rgba(0,0,0,.3);
 }
-img{
-  width:100%;
-  border-radius:15px;
-  margin-bottom:15px;
-}
+
 button{
   background:#ff5c8a;
   color:white;
   border:none;
   padding:12px 20px;
   border-radius:25px;
-  font-size:16px;
+  margin-top:10px;
   cursor:pointer;
 }
-video{
+
+img,video{
   width:100%;
-  border-radius:15px;
-  margin-top:15px;
-  display:none;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+video{display:none}
+
+/* galeri */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:10px;
+}
+.gallery img{
+  height:90px;
+  object-fit:cover;
+}
+
+/* bunga */
+.flower{
+  position:fixed;
+  top:-50px;
+  font-size:24px;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg)}
+}
+
+/* hati klik */
+.heart{
+  position:fixed;
+  font-size:20px;
+  animation:fade 1s linear forwards;
+}
+@keyframes fade{
+  to{opacity:0; transform:translateY(-30px)}
+}
+
+/* confetti */
+.confetti{
+  position:fixed;
+  top:-10px;
+  font-size:18px;
+  animation:fall2 3s linear forwards;
+}
+@keyframes fall2{
+  to{transform:translateY(110vh) rotate(360deg)}
 }
 </style>
 </head>
 
-<body>
-<div class="card">
-  <h2>🎉 Selamat Ulang Tahun Sayang 🎉</h2>
-  <img src="drafft.jpg" alt="foto kita">
-  <p>
-    Terima kasih sudah hadir di hidup aku.  
-    Semoga hari ini penuh cinta dan bahagia 🤍
-  </p>
+<body onclick="tapHeart(event)">
 
-  <button onclick="playAll()">▶ Putar Kejutan</button>
+<div class="overlay"></div>
 
-  <video id="vid" src="draftv.mp4" controls></video>
-  <audio id="musik" src="mp3.mp3.uknown"></audio>
+<div class="card" id="card">
+  <h2>🎉 Selamat Ulang Tahun<br>
+    <span style="color:#ff5c8a">NAMA_PACAR</span>
+  </h2>
+  <p>Klik untuk membuka kejutan 💖</p>
+  <button onclick="passwordStep()">Buka 🎁</button>
 </div>
 
 <script>
+/* PASSWORD */
+const pw1 = "1234";
+const pw2 = "sayang";
+
+function passwordStep(){
+  if(prompt("Password pertama 💕")===pw1){
+    if(prompt("Password kedua 😘")===pw2){
+      showContent();
+      startFlowers();
+    } else alert("Password salah 😜");
+  } else alert("Password salah 😆");
+}
+
+/* KONTEN UTAMA */
+function showContent(){
+  card.innerHTML=`
+    <h2>💐 Untuk NAMA_PACAR 💐</h2>
+
+    <div class="gallery">
+      <img src="foto1.jpg">
+      <img src="foto2.jpg">
+      <img src="foto3.jpg">
+      <img src="foto4.jpg">
+      <img src="foto5.jpg">
+      <img src="foto6.jpg">
+    </div>
+
+    <p>
+      Terima kasih sudah hadir di hidup aku.  
+      Semoga hari ini penuh cinta dan senyum 🤍
+    </p>
+
+    <button onclick="playAll()">▶ Putar Kejutan</button>
+    <button onclick="playVoice()">🔊 Dengar Suara Aku</button>
+
+    <video id="vid" controls playsinline>
+      <source src="video.mp4" type="video/mp4">
+    </video>
+
+    <audio id="musik" src="musik.mp3"></audio>
+    <audio id="suara" src="suara.mp3"></audio>
+
+    <button onclick="showLetter()">💌 Baca Surat</button>
+  `;
+}
+
+/* VIDEO + MUSIK + CONFETTI */
 function playAll(){
-  document.getElementById("vid").style.display="block";
-  document.getElementById("vid").play();
-  document.getElementById("musik").play();
+  vid.style.display="block";
+  vid.play(); musik.play();
+
+  for(let i=0;i<30;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.innerHTML="🎆";
+    c.style.left=Math.random()*100+"vw";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3000);
+  }
+}
+
+/* SUARA */
+function playVoice(){ suara.play(); }
+
+/* SURAT */
+function showLetter(){
+  card.innerHTML=`
+    <h2>💌 Surat Cinta</h2>
+    <p style="text-align:left">
+      Terima kasih sudah menjadi bagian terindah dalam hidup aku.  
+      Semoga aku selalu bisa menemani kamu di setiap langkah 🤍  
+      <br><br>– Aku
+    </p>
+  `;
+}
+
+/* BUNGA */
+function startFlowers(){
+  setInterval(()=>{
+    let f=document.createElement("div");
+    f.className="flower";
+    f.innerHTML="🌸";
+    f.style.left=Math.random()*100+"vw";
+    f.style.animationDuration=(3+Math.random()*5)+"s";
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),8000);
+  },400);
+}
+
+/* HATI */
+function tapHeart(e){
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💖";
+  h.style.left=e.clientX+"px";
+  h.style.top=e.clientY+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),1000);
 }
 </script>
+
 </body>
 </html>
