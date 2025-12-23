@@ -2,25 +2,45 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Selamat Ulang Tahun ❤️</title>
+<title>Happy Birthday Sayang ❤️</title>
 
 <style>
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
-  background:url('bg.jpg') center/cover no-repeat fixed;
   height:100vh;
+  overflow:hidden;
+
+  /* BACKGROUND FOTO + GRADIEN */
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255,92,138,0.35),
+      rgba(255,192,203,0.35),
+      rgba(255,255,255,0.25)
+    ),
+    url('bg.jpg') center/cover no-repeat fixed;
+
+  animation: softColor 12s ease-in-out infinite alternate;
+
   display:flex;
   justify-content:center;
   align-items:center;
-  overflow:hidden;
 }
 
-/* overlay */
+/* ANIMASI WARNA HALUS */
+@keyframes softColor{
+  0%{filter:hue-rotate(0deg) brightness(1)}
+  50%{filter:hue-rotate(15deg) brightness(1.05)}
+  100%{filter:hue-rotate(-10deg) brightness(1)}
+}
+
+/* overlay blur */
 .overlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.4);
+  background:rgba(0,0,0,.35);
+  backdrop-filter:blur(4px);
 }
 
 /* card */
@@ -35,6 +55,7 @@ body{
   box-shadow:0 15px 40px rgba(0,0,0,.3);
 }
 
+/* tombol */
 button{
   background:#ff5c8a;
   color:white;
@@ -45,12 +66,12 @@ button{
   cursor:pointer;
 }
 
+/* media */
 img,video{
   width:100%;
   border-radius:12px;
   margin-top:10px;
 }
-
 video{display:none}
 
 /* galeri */
@@ -67,7 +88,7 @@ video{display:none}
   transition:.3s;
 }
 
-/* bunga */
+/* bunga jatuh */
 .flower{
   position:fixed;
   top:-50px;
@@ -122,11 +143,11 @@ video{display:none}
 <div class="overlay"></div>
 
 <div class="card" id="card">
-  <h2>🎉 Selamat Ulang Tahun<br>
-    <span style="color:#ff5c8a">NAMA_PACAR</span>
+  <h2>🎉 Happy Birthday Sayang<br>
+    <span style="color:#ff5c8a">Revalina_Bilqis</span>
   </h2>
-  <p>Klik untuk membuka kejutan 💖</p>
-  <button onclick="passwordStep()">Buka 🎁</button>
+  <p>Klik Kadonya yaaa 💖</p>
+  <button onclick="passwordStep()">Open Heart u 4 me? 🎁</button>
 </div>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -134,25 +155,20 @@ video{display:none}
 </div>
 
 <script>
-/* PASSWORD */
-const pw1 = "1234";
-const pw2 = "sayang";
+const pw1="1234";
+const pw2="sayang";
 
-/* PASSWORD STEP */
 function passwordStep(){
-  if(prompt("Password pertama 💕")===pw1){
-    if(prompt("Password kedua 😘")===pw2){
-      showContent();
-      startFlowers();
-      autoSlide();
-    }else alert("Password salah 😜");
-  }else alert("Password salah 😆");
+  if(prompt("Minta Raafi yaa 💕")===pw1){
+    if(prompt("Ada di Raafi 😘")===pw2){
+      showContent(); startFlowers(); autoSlide();
+    }else alert("Salah yang 😜");
+  }else alert("Salah lagi nih 😆");
 }
 
-/* KONTEN */
 function showContent(){
   card.innerHTML=`
-    <h2>💐 Untuk NAMA_PACAR 💐</h2>
+    <h2>💐 For Revalina_Bliqis 💐</h2>
 
     <div class="gallery" id="gallery">
       <img src="foto1.jpg" onclick="openLightbox(this)">
@@ -163,55 +179,38 @@ function showContent(){
       <img src="foto6.jpg" onclick="openLightbox(this)">
     </div>
 
-    <p>
-      Terima kasih sudah hadir di hidup aku.  
-      Semoga hari ini penuh cinta dan senyum 🤍
-    </p>
+    <p>Since this journey began, we may never really know how far each step will take us, but from that simple meeting I learned that comfort can slowly grow into love; from small chats, awkward laughter, to finally realizing that it is with you that I want to continue every story, one day at a time. 💖 🤍</p>
 
-    <button onclick="playAll()">▶ Putar Kejutan</button>
-    <button onclick="playVoice()">🔊 Dengar Suara Aku</button>
+    <button onclick="playAll()">▶ Play Video</button>
+    <button onclick="playVoice()">🔊 Can u Hear Me</button>
 
-    <video id="vid" controls playsinline>
-      <source src="video.mp4" type="video/mp4">
+    <video id="vid" controls>
+      <source src="video.mp4">
     </video>
 
     <audio id="musik" src="musik.mp3"></audio>
     <audio id="suara" src="suara.mp3"></audio>
 
-    <button onclick="showLetter()">💌 Baca Surat</button>
+    <button onclick="showLetter()">💌 Buka Surat</button>
   `;
 }
 
-/* VIDEO + MUSIK + CONFETTI */
 function playAll(){
   vid.style.display="block";
   vid.play(); musik.play();
-  for(let i=0;i<30;i++){
-    let c=document.createElement("div");
-    c.className="confetti";
-    c.innerHTML="🎆";
-    c.style.left=Math.random()*100+"vw";
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),3000);
-  }
 }
 
-/* SUARA */
 function playVoice(){ suara.play(); }
 
-/* SURAT */
 function showLetter(){
   card.innerHTML=`
     <h2>💌 Surat Cinta</h2>
     <p style="text-align:left">
-      Terima kasih sudah menjadi bagian terindah dalam hidup aku.  
-      Semoga aku selalu bisa menemani kamu di setiap langkah 🤍  
-      <br><br>– Aku
+      Terima kasih sudah jadi bagian terindah hidup aku 🤍<br><br>– Aku
     </p>
   `;
 }
 
-/* BUNGA */
 function startFlowers(){
   setInterval(()=>{
     let f=document.createElement("div");
@@ -224,7 +223,6 @@ function startFlowers(){
   },400);
 }
 
-/* HATI */
 function tapHeart(e){
   let h=document.createElement("div");
   h.className="heart";
@@ -235,16 +233,12 @@ function tapHeart(e){
   setTimeout(()=>h.remove(),1000);
 }
 
-/* LIGHTBOX */
 function openLightbox(img){
   lightbox.style.display="flex";
-  lightboxImg.src = img.src;
+  lightboxImg.src=img.src;
 }
-function closeLightbox(){
-  lightbox.style.display="none";
-}
+function closeLightbox(){ lightbox.style.display="none"; }
 
-/* AUTO SLIDE GALERI */
 let slideIndex=0;
 function autoSlide(){
   setInterval(()=>{
